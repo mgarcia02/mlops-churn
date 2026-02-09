@@ -1,0 +1,20 @@
+FROM python:3.11-slim
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar requirements
+COPY requirements.inference.txt .
+
+# Instalar dependencias
+RUN pip install --no-cache-dir -r requirements.inference.txt
+
+# Copiar el código de la API y el modelo
+COPY src/inference/ ./src/inference/
+COPY models/ ./models/
+
+# Exponer el puerto donde correrá FastAPI
+EXPOSE 8000
+
+# Comando para arrancar la API
+CMD ["uvicorn", "src.inference.app:app", "--host", "0.0.0.0", "--port", "8000"]

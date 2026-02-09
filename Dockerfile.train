@@ -1,0 +1,17 @@
+FROM python:3.11-slim
+
+# Crear directorio de trabajo
+WORKDIR /app
+
+# Copiar requirements
+COPY requirements.train.txt .
+
+# Instalar dependencias
+RUN pip install --no-cache-dir -r requirements.train.txt
+
+# Copiar código de entrenamiento
+COPY src/training/ ./src/training/
+COPY data/ ./data/
+
+# Comando por defecto (puedes cambiarlo)
+CMD ["python", "src/training/train.py"]
