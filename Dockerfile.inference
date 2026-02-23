@@ -10,8 +10,12 @@ COPY requirements.inference.txt .
 RUN pip install --no-cache-dir -r requirements.inference.txt
 
 # Copiar el código de la API y el modelo
+COPY src/logging_config/ ./src/logging_config/
+COPY src/__init__.py ./src/__init__.py
 COPY src/inference/ ./src/inference/
 COPY models/ ./models/
+
+ENV PYTHONPATH="/app"
 
 # Exponer el puerto donde correrá FastAPI
 EXPOSE 8000

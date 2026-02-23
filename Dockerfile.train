@@ -10,8 +10,12 @@ COPY requirements.train.txt .
 RUN pip install --no-cache-dir -r requirements.train.txt
 
 # Copiar código de entrenamiento
+COPY src/logging_config/ ./src/logging_config/
+COPY src/__init__.py ./src/__init__.py 
 COPY src/training/ ./src/training/
 COPY data/ ./data/
+
+ENV PYTHONPATH="/app"
 
 # Comando por defecto (puedes cambiarlo)
 CMD ["python", "src/training/train.py"]
