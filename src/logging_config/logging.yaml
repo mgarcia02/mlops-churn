@@ -1,0 +1,28 @@
+version: 1
+disable_existing_loggers: False
+
+formatters:
+  json_file: 
+    "()": pythonjsonlogger.jsonlogger.JsonFormatter 
+    fmt: "%(asctime)s %(name)s %(levelname)s %(message)s"
+
+handlers:
+  app_file:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json_file
+    filename: app.log
+    maxBytes: 5242880
+    backupCount: 5
+    encoding: utf8
+
+loggers:
+  training:
+    level: INFO
+    handlers: [app_file]
+    propagate: False
+
+  inference:
+    level: INFO
+    handlers: [app_file]
+    propagate: False
